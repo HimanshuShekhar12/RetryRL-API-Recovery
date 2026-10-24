@@ -1,4 +1,4 @@
-"""Evaluate baselines + trained Q-learning agents.
+"""Evaluate baselines + trained Q-learning and SARSA agents.
 
 Usage:  python evaluate.py                 # normal regime
         python evaluate.py --regime harsh  # unseen harsher outages
@@ -25,11 +25,12 @@ def main():
     for name, fn in BASELINES.items():
         rows[name] = evaluate_policy(fn, args.episodes, regime=args.regime)
 
-    for path in sorted(glob.glob("models/qlearning_seed*.npy")):
-        Q = np.load(path)
-        seed = os.path.basename(path).split("seed")[-1].split(".")[0]
-        rows[f"QLearning_s{seed}"] = evaluate_policy(
-            lambda s, rng, Q=Q: int(np.argmax(Q[s])), args.episodes, regime=args.regime)
+    for algo, label in [("qlearning", "QLearning"), ("sarsa", "SARSA")]:
+        for path in sorted(glob.glob(f"models/{algo}_seed*.npy")):
+            Q = np.load(path)
+            seed = os.path.basename(path).split("seed")[-1].split(".")[0]
+            rows[f"{label}_s{seed}"] = evaluate_policy(
+                lambda s, rng, Q=Q: int(np.argmax(Q[s])), args.episodes, regime=args.regime)
 
     df = pd.DataFrame(rows).T
     pd.set_option("display.width", 200)
