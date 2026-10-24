@@ -87,7 +87,7 @@ class RewardConfig:
     epsilon_fail: float = 10.0    # request abandoned with nothing
     cache_quality: float = 0.8    # cached answer is worth 80% of fresh primary
     fallback_quality: float = 0.85
-    invalid_cache: float = 1.0    # tried USE_CACHE with empty cache
+    invalid_cache: float = 3.0    # tried USE_CACHE with empty cache (clearly costly)
 
 
 def encode_state(last, fail, lat, cache, retry, fb):
