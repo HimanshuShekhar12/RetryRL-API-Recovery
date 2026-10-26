@@ -1,12 +1,3 @@
-"""Generate all report figures + summary tables from trained models and eval CSVs.
-
-Run AFTER training all seeds and after:
-    python evaluate.py --episodes 10000
-    python evaluate.py --regime harsh --episodes 10000
-Then:
-    python make_figures.py
-Outputs go to results/ (PNG + PDF).
-"""
 import glob
 import os
 

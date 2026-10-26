@@ -1,8 +1,3 @@
-"""Train a tabular agent (Q-learning or SARSA).
-
-Usage:  python train.py --algo qlearning --seed 0
-        python train.py --algo sarsa --seed 0
-"""
 import argparse
 import os
 
